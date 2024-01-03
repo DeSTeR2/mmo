@@ -11,6 +11,8 @@ TagManager:
   - 
   - Water
   - UI
+  - Ground
+  - Wall
   - 
   - 
   - 
@@ -22,9 +24,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - Hitbox
   - 
   - 
   - 

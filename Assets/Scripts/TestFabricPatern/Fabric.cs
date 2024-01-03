@@ -12,15 +12,15 @@ namespace Factory
     public abstract class Ability {
         public abstract string Name { get; }
 
-        public abstract void Process(GameObject target);
+        public abstract void Process(GameObject target, int amound);
     }
 
     public class Heal : Ability {
         public override string Name => "heal";
         
-        public override void Process(GameObject target) {
+        public override void Process(GameObject target, int amound) {
             float health = (float)(Variables.Object(target).Get("Health"));
-            health += 10;
+            health += amound;
             Variables.Object(target).Set("Health", health);
             //self.health += 10;
             Debug.Log("healed");
@@ -30,11 +30,22 @@ namespace Factory
     public class Damage : Ability {
         public override string Name => "damage";
 
-        public override void Process(GameObject target) {
+        public override void Process(GameObject target, int amound) {
             float mana = (float)(Variables.Object(target).Get("Mana"));
-            mana -= 10;
+            mana += amound;
             Variables.Object(target).Set("Mana", mana);
             Debug.Log("damaged");
+        }
+    }
+
+    public class AddExp : Ability {
+        public override string Name => "addExp";
+
+        public override void Process(GameObject target, int amound) {
+            float exp = (float)(Variables.Object(target).Get("Exp"));
+            exp += amound;
+            Variables.Object(target).Set("Exp", exp);
+            Debug.Log("Exped");
         }
     }
 

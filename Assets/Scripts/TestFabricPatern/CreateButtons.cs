@@ -13,6 +13,7 @@ using UnityEngine.UI;
 
 public class CreateButtons : MonoBehaviour
 {
+    public Dictionary<string, int> amound;
     public GameObject buttonPref;
     public GameObject player;
 
@@ -20,6 +21,11 @@ public class CreateButtons : MonoBehaviour
 
     void Start()
     {
+
+        amound = new Dictionary<string, int>();
+        amound.Add("damage", -11);
+        amound.Add("heal", 50);
+        amound.Add("addExp", 11);
 
         factory = new AbilityFactory();
         Dictionary<string, Type> abilities = factory.GetAllNames();
@@ -48,7 +54,7 @@ public class CreateButtons : MonoBehaviour
             print("There is no ability with such name: " + clickedButton);
         }
         else {
-            ability.Process(player);
+            ability.Process(player, amound[clickedButton]);
         }
     }
 
