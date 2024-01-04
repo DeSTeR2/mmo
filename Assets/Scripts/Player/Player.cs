@@ -11,8 +11,8 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     private float exp, health, mana;
 
-    [SerializeField]
-    private Slider s_level, s_health, s_mana;
+    [SerializeField] private Slider s_level, s_health, s_mana;
+    [SerializeField] private float damageAmount, headAmount, wasteManaAmount;
     void Start()
     {
         exp = 0;
@@ -53,6 +53,7 @@ public class Player : MonoBehaviour
         Variables.Object(this).Set("Health", health);
         Variables.Object(this).Set("Exp", exp);
 
+        
         s_level.value = exp;
         s_health.value = health;
         s_mana.value = mana;

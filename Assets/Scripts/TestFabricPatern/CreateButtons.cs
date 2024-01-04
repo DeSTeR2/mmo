@@ -54,7 +54,7 @@ public class CreateButtons : MonoBehaviour
             print("There is no ability with such name: " + clickedButton);
         }
         else {
-            ability.Process(player, amound[clickedButton], player);
+            ability.Process(player, amound[clickedButton]);
         }
     }
 
