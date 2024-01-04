@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Unity.VisualScripting;
+using Unity.VisualScripting.FullSerializer;
 using UnityEditor;
+using UnityEditor.Animations;
 using UnityEngine;
 
 namespace Factory
@@ -12,13 +14,13 @@ namespace Factory
     public abstract class Ability {
         public abstract string Name { get; }
 
-        public abstract void Process(GameObject target, int amound);
+        public abstract void Process(GameObject target, int amound, GameObject owner = null);
     }
 
     public class Heal : Ability {
         public override string Name => "heal";
         
-        public override void Process(GameObject target, int amound) {
+        public override void Process(GameObject target, int amound, GameObject owner = null) {
             float health = (float)(Variables.Object(target).Get("Health"));
             health += amound;
             Variables.Object(target).Set("Health", health);
@@ -30,8 +32,15 @@ namespace Factory
     public class Damage : Ability {
         public override string Name => "damage";
 
-        public override void Process(GameObject target, int amound) {
+        public override void Process(GameObject target, int amound, GameObject owner = null) {
             float mana = (float)(Variables.Object(target).Get("Mana"));
+            GameObject curCollision = owner.transform.GetChild(3).GetComponent<colliderManager>().curCollision;
+            if (curCollision != null) {
+                if (curCollision.GetComponent<EnemyController>() == null) {
+                    Debug.Log(curCollision.name);
+                } else curCollision.GetComponent<EnemyController>().getDamaged(amound * 30);
+
+            } else Debug.Log(owner.transform.GetChild(3).name);
             mana += amound;
             Variables.Object(target).Set("Mana", mana);
             Debug.Log("damaged");
@@ -41,7 +50,7 @@ namespace Factory
     public class AddExp : Ability {
         public override string Name => "addExp";
 
-        public override void Process(GameObject target, int amound) {
+        public override void Process(GameObject target, int amound, GameObject owner = null) {
             float exp = (float)(Variables.Object(target).Get("Exp"));
             exp += amound;
             Variables.Object(target).Set("Exp", exp);
