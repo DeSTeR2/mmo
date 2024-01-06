@@ -74,8 +74,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4291940817
+  m_fontColor: {r: 0.8196079, g: 0.8196079, b: 0.8196079, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 9095636386023973160}
   - component: {fileID: 3592748888890775759}
   - component: {fileID: 7394560961835312414}
+  - component: {fileID: 6996167981817991695}
   m_Layer: 0
   m_Name: ExpIUShow
   m_TagString: Untagged
@@ -163,7 +164,7 @@ RectTransform:
   m_GameObject: {fileID: 5269382695435803037}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.28258565, y: 0.28258565, z: 0.28258565}
+  m_LocalScale: {x: 0.39562783, y: 0.39562783, z: 0.39562783}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6681514212900097434}
@@ -171,7 +172,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -756.5, y: 374.7}
+  m_AnchoredPosition: {x: -701.8, y: 346}
   m_SizeDelta: {x: 0, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7209374832423428955
@@ -252,3 +253,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
+--- !u!114 &6996167981817991695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5269382695435803037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e67c4dd822fa1624982c516c833e9003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  animTime: 2
+  amountOnText: 6

@@ -15,8 +15,16 @@ public class Player : MonoBehaviour
 
     [SerializeField] private Slider s_level, s_health, s_mana;
     [SerializeField] private float damageAmount, headAmount, wasteManaAmount;
+    [SerializeField] private GameObject NumberAnimation_Handler;
+
+    private int p_exp, p_health, p_mana;
+    private NumbersAimation uiAnim;
     void Start()
     {
+        uiAnim = NumberAnimation_Handler.GetComponent<NumbersAimation>();
+
+        uiAnim.showAnim("Mana", -10);
+
         exp = 0;
         health = (int)s_health.maxValue;
         mana = (int)s_mana.maxValue;
@@ -37,6 +45,17 @@ public class Player : MonoBehaviour
         health = (int)(Variables.Object(this).Get("Health"));
         exp = (int)(Variables.Object(this).Get("Exp"));
 
+        if (mana != p_mana) {
+            uiAnim.showAnim("Mana", mana-p_mana);
+        }
+
+        if (exp != p_exp) {
+            uiAnim.showAnim("Exp", exp-p_exp);
+        }
+
+        if (health != p_health) {
+            uiAnim.showAnim("Damage", health-p_health);
+        }
 
         mana = (int)Mathf.Min(mana, s_mana.maxValue);
         health = (int)Mathf.Min(health, s_health.maxValue);
@@ -55,7 +74,10 @@ public class Player : MonoBehaviour
         Variables.Object(this).Set("Health", health);
         Variables.Object(this).Set("Exp", exp);
 
-        
+        p_exp = exp;
+        p_mana = mana;
+        p_health = health;
+
         s_level.value = exp;
         s_health.value = health;
         s_mana.value = mana;
@@ -73,5 +95,13 @@ public class Player : MonoBehaviour
             }
 
         }
+    }
+
+    public void setVariable(string Name, int value) {
+        Variables.Object(this).Set(Name, value);
+    }
+
+    public int getVariable(string Name) {
+        return (int)Variables.Object(this).Get(Name);
     }
 }
