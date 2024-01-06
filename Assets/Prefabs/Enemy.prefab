@@ -597,6 +597,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   expPrefab: {fileID: 4561632362704660926, guid: e9a92a9d88ac773428ef6e492d28a4eb, type: 3}
+  healPrefab: {fileID: 7899141308686930003, guid: cb2f742d4372a5441a4cc6f0a4f83bde, type: 3}
+  prefabOffset: 2
   expNumber: 5
   healNumber: 4
   offsetNumber: 2

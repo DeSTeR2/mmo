@@ -20,11 +20,10 @@ namespace Factory
         public override string Name => "heal";
         
         public override void Process(GameObject target, int amound) {
-            float health = (float)(Variables.Object(target).Get("Health"));
+            int health = (int)(Variables.Object(target).Get("Health"));
             health += amound;
             Variables.Object(target).Set("Health", health);
-            //self.health += 10;
-            //Debug.Log("healed");
+
         }
     }
 
@@ -32,17 +31,18 @@ namespace Factory
         public override string Name => "damage";
 
         public override void Process(GameObject target, int amound) {
-            float mana = (float)(Variables.Object(target).Get("Mana"));
+            int mana = (int)(Variables.Object(target).Get("Mana"));
             GameObject curCollision = target.transform.GetChild(3).GetComponent<colliderManager>().curCollision;
             if (curCollision != null) {
-                if (curCollision.GetComponent<DamageController>() == null) {
-                    Debug.Log(curCollision.name);
-                } else curCollision.GetComponent<DamageController>().getDamaged(amound * 30);
+                if (curCollision.GetComponent<DamageController>() == null) Debug.LogWarning(curCollision.name + "has no DamageController()");
+                else { 
+                    curCollision.GetComponent<DamageController>().getDamaged(amound * 30); 
+                    mana += amound;
+                    Variables.Object(target).Set("Mana", mana);
+                }
 
             } else Debug.Log(target.transform.GetChild(3).name);
-            mana += amound;
-            Variables.Object(target).Set("Mana", mana);
-            //Debug.Log("damaged");
+
         }
     }
 
@@ -50,10 +50,9 @@ namespace Factory
         public override string Name => "addExp";
 
         public override void Process(GameObject target, int amound) {
-            float exp = (float)(Variables.Object(target).Get("Exp"));
+            int exp = (int)(Variables.Object(target).Get("Exp"));
             exp += amound;
             Variables.Object(target).Set("Exp", exp);
-            //Debug.Log("Exped");
         }
     }
 

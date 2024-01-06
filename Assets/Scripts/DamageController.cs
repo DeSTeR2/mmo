@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class DamageController : MonoBehaviour {
-    [SerializeField] private float health;
+    [SerializeField] private int health;
     [SerializeField] private GameObject showDamagePanel;
     [SerializeField] private Canvas damagePanelCanvas;
     [SerializeField] private float offset;
@@ -21,11 +21,11 @@ public class DamageController : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         if (Variables.Object(this).IsDefined("Health") == true) {
-            health = (float)Variables.Object(this).Get("Health");
+            health = (int)Variables.Object(this).Get("Health");
         }
     }
 
-    public void getDamaged(float amound) {
+    public void getDamaged(int amound) {
         if (amound > 0) amound *= -1;
 
         GameObject newDamagePanel = showDamagePanel;
@@ -42,7 +42,7 @@ public class DamageController : MonoBehaviour {
         
     }
 
-    public float getHealth() {
+    public int getHealth() {
         return health;
     }
 

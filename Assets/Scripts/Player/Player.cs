@@ -1,3 +1,4 @@
+using Fabric.DropItem;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -5,19 +6,20 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using Fabric.DropItem;
 
 public class Player : MonoBehaviour
 {
     // Start is called before the first frame update
-    private float exp, health, mana;
+    private int exp, health, mana;
 
     [SerializeField] private Slider s_level, s_health, s_mana;
     [SerializeField] private float damageAmount, headAmount, wasteManaAmount;
     void Start()
     {
         exp = 0;
-        health = s_health.maxValue;
-        mana = s_mana.maxValue;
+        health = (int)s_health.maxValue;
+        mana = (int)s_mana.maxValue;
 
         Variables.Object(this).Set("Level", 1);
         Variables.Object(this).Set("Exp", exp);
@@ -31,18 +33,18 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        mana = (float)(Variables.Object(this).Get("Mana"));
-        health = (float)(Variables.Object(this).Get("Health"));
-        exp = (float)(Variables.Object(this).Get("Exp"));
+        mana = (int)(Variables.Object(this).Get("Mana"));
+        health = (int)(Variables.Object(this).Get("Health"));
+        exp = (int)(Variables.Object(this).Get("Exp"));
 
 
-        mana = Mathf.Min(mana, s_mana.maxValue);
-        health = Mathf.Min(health, s_health.maxValue);
+        mana = (int)Mathf.Min(mana, s_mana.maxValue);
+        health = (int)Mathf.Min(health, s_health.maxValue);
         if (mana < 0) mana = 0;
         if (health < 0) health = 0;
 
         if (s_level.maxValue <= exp) {
-            exp -= s_level.maxValue;
+            exp -= (int)s_level.maxValue;
             string text = s_level.transform.GetChild(1).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text;
             int lvl = int.Parse(text) + 1;
             text = lvl.ToString();
@@ -57,5 +59,19 @@ public class Player : MonoBehaviour
         s_level.value = exp;
         s_health.value = health;
         s_mana.value = mana;
+    }
+    private void OnCollisionEnter(Collision other) {
+        if (other.gameObject.tag == "DropItem") {
+            
+            DropItem item = new DropItem(other.gameObject.GetComponent<DropItemLogic>().getDropItem());
+
+            if (item == null) 
+                Debug.LogWarning(other.gameObject.name + " has no DropItemLogic");
+            else {
+                Variables.Object(this).Set(item.getName(), (int)Variables.Object(this).Get(item.getName()) + item.getValue());
+                Destroy(other.gameObject);
+            }
+
+        }
     }
 }

@@ -22,7 +22,7 @@ public class DamageAnimation : MonoBehaviour
         Vector3 curPosition = this.transform.position;
         transform.DOMove(curPosition + new Vector3(0, 3, 0), animDuration);
         canvasGroup.DOFade(0, animDuration);
-        Destroy(this.gameObject, animDuration);
+        Destroy(this.gameObject, animDuration + 1);
         DOTween.Play(this);
     }
 }
