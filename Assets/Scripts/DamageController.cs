@@ -11,14 +11,10 @@ public class DamageController : MonoBehaviour {
     [SerializeField] private GameObject showDamagePanel;
     [SerializeField] private Canvas damagePanelCanvas;
     [SerializeField] private float offset;
-    // Start is called before the first frame update
+
 
     public bool playerHit = false;
-    void Start() {
 
-    }
-
-    // Update is called once per frame
     void Update() {
         if (Variables.Object(this).IsDefined("Health") == true) {
             health = (int)Variables.Object(this).Get("Health");

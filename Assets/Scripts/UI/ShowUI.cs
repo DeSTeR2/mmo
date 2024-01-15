@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ShowUI : MonoBehaviour
 {
@@ -14,7 +15,11 @@ public class ShowUI : MonoBehaviour
 
     private void Start() {
         DOTween.Init();
-        this.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = amountOnText.ToString();
+        string text = amountOnText.ToString();
+        if (amountOnText > 0) {
+            text = "+" + text;
+        }
+        this.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = text;
         anim();
     }
 
