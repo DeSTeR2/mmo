@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Unity.VisualScripting;
+using Unity.VisualScripting.FullSerializer;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,40 +13,37 @@ namespace Factory
     public abstract class Ability {
         public abstract string Name { get; }
 
-        public abstract void Process(GameObject target, int amound);
+        public abstract void Process(GameObject target, int amound, float coolDown);
     }
 
     public class Heal : Ability {
         public override string Name => "heal";
         
-        public override void Process(GameObject target, int amound) {
-            float health = (float)(Variables.Object(target).Get("Health"));
+        public override void Process(GameObject target, int amound, float coolDown) {
+            int health = (int)(Variables.Object(target).Get("Health"));
             health += amound;
             Variables.Object(target).Set("Health", health);
-            //self.health += 10;
-            Debug.Log("healed");
+
         }
     }
 
     public class Damage : Ability {
         public override string Name => "damage";
 
-        public override void Process(GameObject target, int amound) {
-            float mana = (float)(Variables.Object(target).Get("Mana"));
-            mana += amound;
-            Variables.Object(target).Set("Mana", mana);
-            Debug.Log("damaged");
+        public override void Process(GameObject target, int amound, float coolDown) {
+            if (coolDown > 0) return;
+            target?.GetComponent<CharacterAnimations>().Atack();
+
         }
     }
 
     public class AddExp : Ability {
         public override string Name => "addExp";
 
-        public override void Process(GameObject target, int amound) {
-            float exp = (float)(Variables.Object(target).Get("Exp"));
+        public override void Process(GameObject target, int amound, float coolDown) {
+            int exp = (int)(Variables.Object(target).Get("Exp"));
             exp += amound;
             Variables.Object(target).Set("Exp", exp);
-            Debug.Log("Exped");
         }
     }
 
