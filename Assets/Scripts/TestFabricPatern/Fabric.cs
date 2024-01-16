@@ -31,17 +31,7 @@ namespace Factory
         public override string Name => "damage";
 
         public override void Process(GameObject target, int amound) {
-            int mana = (int)(Variables.Object(target).Get("Mana"));
-            GameObject curCollision = target.transform.GetChild(3).GetComponent<colliderManager>().curCollision;
-            if (curCollision != null) {
-                if (curCollision.GetComponent<DamageController>() == null) Debug.LogWarning(curCollision.name + "has no DamageController()");
-                else { 
-                    curCollision.GetComponent<DamageController>().getDamaged(amound * 30); 
-                    mana += amound;
-                    Variables.Object(target).Set("Mana", mana);
-                }
-
-            } else Debug.Log(target.transform.GetChild(3).name);
+            target?.GetComponent<AtackWeapon>()?.Atack();
 
         }
     }

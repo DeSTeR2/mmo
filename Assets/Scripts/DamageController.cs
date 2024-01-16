@@ -35,7 +35,6 @@ public class DamageController : MonoBehaviour {
         if (Variables.Object(this).IsDefined("Health") == true) {
             Variables.Object(this).Set("Health", health);
         } 
-        
     }
 
     public int getHealth() {

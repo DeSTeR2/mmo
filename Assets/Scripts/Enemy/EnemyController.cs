@@ -13,6 +13,8 @@ public class EnemyController : MonoBehaviour
     private float timer, health;
     private bool allowHit = true;
 
+    public bool isStun = false;
+
     void Update()
     {
         health = this.GetComponent<DamageController>().getHealth();
@@ -32,17 +34,21 @@ public class EnemyController : MonoBehaviour
 
 
     private void OnTriggerStay(Collider other) {
+        if (isStun == true) return;
+
         if (other.gameObject.tag == "Player") {
             DamageController damageController = other.gameObject.GetComponent<DamageController>();
+            PlayerStun playerStun = other.gameObject.GetComponent<PlayerStun>();
 
             if (damageController != null) 
                 if (allowHit) {
                     damageController.playerHit = true;
-                    damageController.getDamaged(-10); allowHit=false;
+                    damageController.getDamaged(-10);
+
+                    allowHit=false;
                 }
         }
     }
-
 
 
 

@@ -450,6 +450,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 81bb9eea30387e442899949a80011e55, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2934030531773792042}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 81bb9eea30387e442899949a80011e55, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1227300870702591514}
   m_SourcePrefab: {fileID: 100100000, guid: 81bb9eea30387e442899949a80011e55, type: 3}
 --- !u!4 &7453987362892935038 stripped
 Transform:
@@ -536,6 +539,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToHit: 0.8
   s_health: {fileID: 849355555322165626}
+  isStun: 0
 --- !u!135 &4391437088545126654
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -605,3 +609,16 @@ MonoBehaviour:
   expAmound: 4
   healAmound: 30
   offsetAmound: 2
+--- !u!114 &1227300870702591514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7798601435834987972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 218c36b3ac853954382f7e2e0e4b4792, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stunBar: {fileID: 0}

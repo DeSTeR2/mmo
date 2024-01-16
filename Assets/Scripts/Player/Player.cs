@@ -16,15 +16,23 @@ public class Player : MonoBehaviour
     [SerializeField] private float damageAmount, headAmount, wasteManaAmount;
 
     private int p_exp, p_health, p_mana; // previous variables 
-    //private NumbersAimation uiAnim;
+
+    private PlayerMovement playerMovement;
+    private DamageController damageController;
+    private PlayerVariableHandler playerVariableHandler;
+
     void Start()
     {
+        playerMovement = GetComponent<PlayerMovement>();
+        damageController = GetComponent<DamageController>();
+        playerVariableHandler = GetComponent<PlayerVariableHandler>();
 
         exp = 0;
         health = (int)s_health.maxValue;
         mana = (int)s_mana.maxValue;
 
     }
+
 
     private void OnCollisionEnter(Collision other) {
         if (other.gameObject.tag == "DropItem") {
