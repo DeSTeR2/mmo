@@ -13,13 +13,13 @@ namespace Factory
     public abstract class Ability {
         public abstract string Name { get; }
 
-        public abstract void Process(GameObject target, int amound);
+        public abstract void Process(GameObject target, int amound, float coolDown);
     }
 
     public class Heal : Ability {
         public override string Name => "heal";
         
-        public override void Process(GameObject target, int amound) {
+        public override void Process(GameObject target, int amound, float coolDown) {
             int health = (int)(Variables.Object(target).Get("Health"));
             health += amound;
             Variables.Object(target).Set("Health", health);
@@ -30,8 +30,9 @@ namespace Factory
     public class Damage : Ability {
         public override string Name => "damage";
 
-        public override void Process(GameObject target, int amound) {
-            target?.GetComponent<AtackWeapon>()?.Atack();
+        public override void Process(GameObject target, int amound, float coolDown) {
+            if (coolDown > 0) return;
+            target?.GetComponent<CharacterAnimations>().Atack();
 
         }
     }
@@ -39,7 +40,7 @@ namespace Factory
     public class AddExp : Ability {
         public override string Name => "addExp";
 
-        public override void Process(GameObject target, int amound) {
+        public override void Process(GameObject target, int amound, float coolDown) {
             int exp = (int)(Variables.Object(target).Get("Exp"));
             exp += amound;
             Variables.Object(target).Set("Exp", exp);

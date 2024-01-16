@@ -14,6 +14,7 @@ using UnityEngine.UI;
 public class CreateButtons : MonoBehaviour
 {
     public Dictionary<string, int> amound;
+    private Dictionary<string,float> coolDown, defCoolDown;
     public GameObject buttonPref;
     public GameObject player;
 
@@ -21,11 +22,20 @@ public class CreateButtons : MonoBehaviour
 
     void Start()
     {
+        defCoolDown = new Dictionary<string, float>();
+        defCoolDown.Add("damage", 1.5f);
+        defCoolDown.Add("heal", 2);
+        defCoolDown.Add("addExp", 0);
 
         amound = new Dictionary<string, int>();
         amound.Add("damage", -11);
         amound.Add("heal", 50);
         amound.Add("addExp", 11);
+
+        coolDown = new Dictionary<string, float>();
+        coolDown.Add("damage", 0);
+        coolDown.Add("heal", 0);
+        coolDown.Add("addExp", 0);
 
         factory = new AbilityFactory();
         Dictionary<string, Type> abilities = factory.GetAllNames();
@@ -54,13 +64,16 @@ public class CreateButtons : MonoBehaviour
             print("There is no ability with such name: " + clickedButton);
         }
         else {
-            ability.Process(player, amound[clickedButton]);
+            ability.Process(player, amound[clickedButton], coolDown[clickedButton]);
+            if (coolDown["damage"] < 0) coolDown["damage"] = defCoolDown["damage"];
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        foreach (KeyValuePair<string, float> keys in defCoolDown) {
+            coolDown[keys.Key] -= (float)Time.deltaTime;
+        }
     }
 }

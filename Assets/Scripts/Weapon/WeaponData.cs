@@ -20,6 +20,7 @@ public class WeaponData : MonoBehaviour {
     private void Update() {
         if (this.transform != position) { 
             this.transform.SetParent(position, true);
+            this.GetComponent<MeshCollider>().enabled = true;
         }
 
         this.GetComponent<Transform>().position = position.position;
