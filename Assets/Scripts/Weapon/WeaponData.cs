@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -10,24 +11,32 @@ public class WeaponData : MonoBehaviour {
     public Transform position;
 
     private Vector3 rotation = new Vector3(0, 0, 90);
+    private GameObject parent;
 
     private void Start() {
-        if (position == null) {
-            position = transform;
-        }
+
     }
 
     private void Update() {
-        if (this.transform != position) { 
+        if (position != null) {
             this.transform.SetParent(position, true);
-            this.GetComponent<MeshCollider>().enabled = true;
+            this.transform.GetComponent<Transform>().position = position.position;
+            this.transform.localRotation = Quaternion.identity * Quaternion.EulerRotation(rotation);
+
+            if (parent == null) {
+                Transform cur = position;
+                while (cur != null) {
+                    parent = cur.gameObject;
+                    cur = cur.parent;
+                }
+            }
         }
 
-        this.GetComponent<Transform>().position = position.position;
-        this.transform.localRotation = Quaternion.identity * Quaternion.EulerRotation(rotation);
     }
 
     private void OnTriggerEnter(Collider target) {
+        if (target==null || parent == null || target.gameObject == parent.gameObject) return;
+
         DamageController curCollision = target?.gameObject?.GetComponent<DamageController>();
         EnemyStun enemyStun = target?.gameObject?.GetComponent<EnemyStun>();
 
@@ -36,5 +45,7 @@ public class WeaponData : MonoBehaviour {
         if (enemyStun != null && stunTime > 0) {
             enemyStun?.Stun(stunTime);
         }
+
     }
+
 }

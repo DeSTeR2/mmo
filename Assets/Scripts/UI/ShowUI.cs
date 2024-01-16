@@ -8,13 +8,14 @@ using UnityEngine.UIElements;
 public class ShowUI : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] public GameObject target;
+    [SerializeField] public GameObject target, parent;
     [SerializeField] int animTime;
 
     public int amountOnText = 0;
 
     private void Start() {
         DOTween.Init();
+        this.transform.position = parent.transform.position ;
         string text = amountOnText.ToString();
         if (amountOnText > 0) {
             text = "+" + text;

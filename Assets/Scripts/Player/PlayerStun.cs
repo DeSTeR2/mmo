@@ -8,15 +8,17 @@ public class PlayerStun : MonoBehaviour, IStun
     private PlayerMovement playerMovement;
     private DamageController damageController;
     private PlayerVariableHandler playerVariableHandler;
+    private CharacterAnimations animations;
 
 
-    [SerializeField] GameObject stunBar;
+    [SerializeField] GameObject stunBar, stunStars;
 
     private void Start() {
         playerMovement = GetComponent<PlayerMovement>();
         damageController = GetComponent<DamageController>();
         playerVariableHandler = GetComponent<PlayerVariableHandler>();
         Controller = GetComponent<Player>();
+        animations = GetComponent<CharacterAnimations>();
     }
 
     public void Stun(float duration) {
@@ -28,11 +30,16 @@ public class PlayerStun : MonoBehaviour, IStun
     public IEnumerator StunController(float duration) {
         playerMovement.enabled = false;
         playerVariableHandler.enabled = false;
-
-
+        animations.enabled = false;
+        
+        stunStars.active = true;
 
         yield return new WaitForSeconds(duration);
+
         playerMovement.enabled = true;
         playerVariableHandler.enabled = true;
+        animations.enabled = true;
+
+        stunStars.active = false;
     }
 }

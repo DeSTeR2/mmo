@@ -33,7 +33,7 @@ namespace Factory
         public override void Process(GameObject target, int amound, float coolDown) {
             if (coolDown > 0) return;
             target?.GetComponent<CharacterAnimations>().Atack();
-
+            target.GetComponent<CharacterAnimations>().isAtacking = false;
         }
     }
 

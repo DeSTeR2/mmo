@@ -49,7 +49,7 @@ public class CreateButtons : MonoBehaviour
             button.name = keys.Key;
             button.transform.GetChild(0).name = keys.Key; 
             button.transform.localScale = new Vector3(1.2f,1.2f,1.2f);
-            position.y += i * 150;
+            position.y += i * 60;
             button.transform.position = position;
             button.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(abilityClick);
             i++;

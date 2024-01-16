@@ -12,6 +12,8 @@ public class CharacterAnimations : MonoBehaviour
 
     [SerializeField] float d_StandAnim, d_atackAnim = 3;
 
+    public bool isAtacking = false;
+
     private c_StandAnimation standAnimation;
     private c_AtackAnim atackAnimation;
 
