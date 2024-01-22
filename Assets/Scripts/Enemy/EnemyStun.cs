@@ -15,7 +15,7 @@ public class EnemyStun : MonoBehaviour, IStun
     }
 
     public void Stun(float duration) {
-        Debug.Log("Enemy stunned");
+        //Debug.Log("Enemy stunned");
         StartCoroutine(StunController(duration));
     }
 
