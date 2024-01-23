@@ -433,9 +433,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03e0cbc7e28266948acd0d21802bc43d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
+  damage: 120
   stunTime: 3
   position: {fileID: 0}
+  parent: {fileID: 0}
 --- !u!54 &8742780835470367849
 Rigidbody:
   m_ObjectHideFlags: 0

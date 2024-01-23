@@ -20,7 +20,11 @@ public class EnemyController : MonoBehaviour
     private AbilityFactory abilityFactory;
     private Dictionary<string, float> coolDown, defCoolDown;
 
+    GameObject stunStars;
+
     private void Start() {
+        stunStars = GetComponent<EnemyStun>().GetStars();
+
         abilityFactory = new AbilityFactory();
 
         coolDown = new Dictionary<string, float>();
@@ -36,22 +40,26 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
+        isStun = stunStars.active;
+
+        health = this.GetComponent<DamageController>().getHealth();
+        s_health.value = health;
+
+        if (health <= 0) {
+            this.GetComponent<DeadLogic>().dead();
+        }
+
+        if (isStun) return;
 
         foreach (var cool in defCoolDown) {
             coolDown[cool.Key] -= (float)Time.deltaTime;
         }
 
-        health = this.GetComponent<DamageController>().getHealth();
-        s_health.value = health;
         if(!allowHit) timer += Time.deltaTime;
 
         if (timer >= timeToHit) {
             timer = 0;
             allowHit = true;
-        }
-
-        if (health <= 0) {
-            this.GetComponent<DeadLogic>().dead();
         }
     }
 

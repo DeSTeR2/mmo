@@ -19,6 +19,10 @@ public class EnemyStun : MonoBehaviour, IStun
         StartCoroutine(StunController(duration));
     }
 
+    public GameObject GetStars() {
+        return stunStars; 
+    }
+
     public IEnumerator StunController(float duration) {
         Controller.isStun = true;
         stunStars.active = true;
